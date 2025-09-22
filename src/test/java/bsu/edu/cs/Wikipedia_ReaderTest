@@ -1,0 +1,20 @@
+package bsu.edu.cs;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+public class Wikipedia_ReaderTest {
+
+
+    @Test
+    public void testParse() throws IOException {
+        Wikipedia_Reader parser = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String timeStamp = parser.parse(testDataStream);
+        Assertions.assertEquals("2025-08-15T04:35:35Z", timeStamp);
+    }
+
+
+}
