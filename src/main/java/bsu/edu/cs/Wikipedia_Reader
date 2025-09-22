@@ -1,0 +1,43 @@
+package bsu.edu.cs;
+
+import com.jayway.jsonpath.JsonPath;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.MalformedInputException;
+import java.util.Scanner;
+
+public class Wikipedia_Reader {
+    public static void main(String[] args) {
+        Wikipedia_Reader reader = new Wikipedia_Reader();
+        Scanner input = new Scanner(System.in);
+        String Line = input.nextLine();
+        try {
+            String timestamp = reader.getLatestRevisionOf(Line);
+            System.out.println(timestamp);
+        } catch (IOException ioException) {
+            System.err.println("Network Issue: " + ioException.getMessage());
+        }
+    }
+
+    private String getLatestRevisionOf(String articleTitle) throws IOException {
+        String urlString = String.format("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=Videogame&rvprop=timestamp|user&rvlimit=4&redirects"
+                , articleTitle);
+        String encodedUrlString = URLEncoder.encode(urlString, Charset.defaultCharset());
+        try {
+            URL url = new URL(encodedUrlString);
+            URLConnection connection = url.openConnection();
+            connection.setRequestProperty("User-Agent", "Wikipedia_Reader/0.1 (ej.wade@bsu.edu)");
+            InputStream inputStream = connection.getInputStream();
+            Wikipedia_Reader parser = new Wikipedia_Reader();
+            String timeStamp = parser.parse(inputStream);
+            return timeStamp;
+        } catch (MalformedInputException malformedURLException){
+            throw new RuntimeException(malformedURLException);
+        }
+    }
+}
