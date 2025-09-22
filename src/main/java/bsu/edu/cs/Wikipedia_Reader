@@ -41,6 +41,8 @@ public class Wikipedia_Reader {
         }
 
          public String parse(InputStream testDataStream) throws IOException {
-        return null;
+        JSONARRAY results = (JSONARRAY) JsonPath.read(testDataStream, "$...timestamp");
+        return results.get(0).toString;
+    }
     }
 }
