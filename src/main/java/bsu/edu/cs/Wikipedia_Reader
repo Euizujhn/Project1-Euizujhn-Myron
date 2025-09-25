@@ -22,6 +22,9 @@ public class Wikipedia_Reader {
 
     //Display the most recent changes made
 
+    //GETS THE JSON DATA
+
+
 
     public static void main(String[] args) {
          Wikipedia_Reader reader = new Wikipedia_Reader();
@@ -34,6 +37,8 @@ public class Wikipedia_Reader {
     catch (IOException ioException) {
         System.err.println("Network Issue: " + ioException.getMessage());
     }
+
+
     }
 
       private String getLatestRevisionOf(String articleTitle) throws IOException {
@@ -56,10 +61,61 @@ public class Wikipedia_Reader {
     }
       }
 
-    // FOR TEST
-    public String parse(InputStream testDataStream) throws IOException {
-       JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
-      return results.get(3).toString();
+    //Test
+    public String Chris(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
+        String Chris = results.get(0).toString();
+        return Chris;
     }
+
+    public String GreenC(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
+        String GreenC_Bot = results.get(1).toString();
+        return GreenC_Bot;
+    }
+
+    public String Old_Account(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
+        String Old_Account = results.get(2).toString();
+        return Old_Account;
+    }
+
+    public String Second_Old_Account(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
+        String Second_Old_Account = results.get(3).toString();
+        return Second_Old_Account;
+    }
+
+
+    public String Chris_TimeStamp(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
+        String Chris_TimeStamp = results.get(0).toString();
+        return Chris_TimeStamp;
+    }
+
+    public String GreenC_TimeStamp(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
+        String GreenC_TimeStamp = results.get(1).toString();
+        return GreenC_TimeStamp;
+    }
+
+    public String Old_Account_TimeStamp(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
+        String Old_Account_TimeStamp = results.get(2).toString();
+        return Old_Account_TimeStamp;
+    }
+
+    public String Second_Old_Account_TimeStamp(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
+        String Second_Old_Account_TimeStamp = results.get(3).toString();
+        return Second_Old_Account_TimeStamp;
+    }
+
+
+    public String parse(InputStream testDataStream) throws IOException {
+        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
+        return results.get(3).toString();
+    }
+
 
 }
