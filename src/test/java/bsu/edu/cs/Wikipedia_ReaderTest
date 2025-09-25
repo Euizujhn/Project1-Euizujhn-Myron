@@ -18,13 +18,60 @@ public class Wikipedia_ReaderTest {
     }
 
     @Test
-    public void testSecondTime() throws IOException {
+    public void testGreenC() throws IOException{
+        Wikipedia_Reader GreenCTest = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String user = GreenCTest.GreenC(testDataStream);
+        Assertions.assertEquals("GreenC bot", user);
+    }
+
+    @Test
+    public void testOld_Account() throws IOException{
+        Wikipedia_Reader Old_AccountTest = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String user = Old_AccountTest.Old_Account(testDataStream);
+        Assertions.assertEquals("Æ's old account wasn't working", user);
+    }
+
+    @Test
+    public void testSecond_Old_Account() throws IOException{
+        Wikipedia_Reader Second_Old_AccountTest = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String user = Second_Old_AccountTest.Second_Old_Account(testDataStream);
+        Assertions.assertEquals("Æ's old account wasn't working", user);
+    }
+
+    @Test
+    public void testChrisTimeStamp() throws IOException {
+        Wikipedia_Reader parser = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String timeStamp = parser.Chris_TimeStamp(testDataStream);
+        Assertions.assertEquals("2025-09-19T04:30:52Z", timeStamp);
+    }
+
+    @Test
+    public void testGreenCTimeStamp() throws IOException {
+        Wikipedia_Reader parser = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String timeStamp = parser.GreenC_TimeStamp(testDataStream);
+        Assertions.assertEquals("2025-09-16T18:45:35Z", timeStamp);
+    }
+
+    @Test
+    public void testOld_AccountTimeStamp() throws IOException {
+        Wikipedia_Reader parser = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String timeStamp = parser.Old_Account_TimeStamp(testDataStream);
+        Assertions.assertEquals("2025-09-07T07:16:17Z", timeStamp);
+    }
+
+    @Test
+    public void testSecond_Old_TimeStamp() throws IOException {
         Wikipedia_Reader parser = new Wikipedia_Reader();
         InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
         String timeStamp = parser.Second_Old_Account_TimeStamp(testDataStream);
         Assertions.assertEquals("2025-08-15T04:35:35Z", timeStamp);
     }
-
 
 
 }
