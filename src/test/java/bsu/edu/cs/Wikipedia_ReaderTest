@@ -8,12 +8,23 @@ import java.io.InputStream;
 public class Wikipedia_ReaderTest {
 
 
-   @Test
-    public void testParse() throws IOException {
+
+    @Test
+    public void testChris() throws IOException{
+       Wikipedia_Reader ChrisTest = new Wikipedia_Reader();
+        InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
+        String user = ChrisTest.Chris(testDataStream);
+        Assertions.assertEquals("Chris the speller", user);
+    }
+
+    @Test
+    public void testSecondTime() throws IOException {
         Wikipedia_Reader parser = new Wikipedia_Reader();
         InputStream testDataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Test.Json");
-       String timeStamp = parser.parse(testDataStream);
+        String timeStamp = parser.Second_Old_Account_TimeStamp(testDataStream);
         Assertions.assertEquals("2025-08-15T04:35:35Z", timeStamp);
     }
+
+
 
 }
