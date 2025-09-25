@@ -1,53 +1,14 @@
-package bsu.edu.cs;
-public class Format {
-    public static void main(String[] args) {
-        // Redirect values
-        String redirectFrom = "Videogame";
+Team member: Euizujhn wade, Myron Rose
+Peer review group: C3 – Kirby, Camden / Shopher, Jacob
 
-        // Page values
-        var pageId = 5363;
-        String title = "Video game";
 
-        // Revisions
-        String[] users = {
-                "Chris the speller",
-                "GreenC bot",
-                "Æ's old account wasn't working",
-                "Æ's old account wasn't working"
-        };
+-One good thing about the code is that The logic is broken down into readable steps: parsing, redirect handling, checking page validity, checking revisions, and then printing.
 
-        String[] timestamps = {
-                "2025-09-19T04:30:52Z",
-                "2025-09-16T18:45:35Z",
-                "2025-09-07T07:16:17Z",
-                "2025-08-15T04:35:35Z"
-        };
+-The code uses early returns to avoid deep nesting, which improves readability.
 
-        // Print the data in JSON-like format
-        System.out.println("{");
-        System.out.println("  \"redirect\": {");
-        System.out.println("    \"from\": \"" + redirectFrom + "\",");
-        String redirectTo = "Video game";
-        System.out.println("    \"to\": \"" + redirectTo + "\"");
-        System.out.println("  },");
-        System.out.println("  \"page\": {");
-        System.out.println("    \"pageid\": " + pageId + ",");
-        System.out.println("    \"title\": \"" + title + "\",");
-        System.out.println("    \"revisions\": [");
+-The class FormatJsonData is responsible for both parsing and output (i.e., formatting + printing), violating the Single Responsibility Principle (SRP)
 
-        for (int i = 0; i < users.length; i++) {
-            System.out.println("      {");
-            System.out.println("        \"user\": \"" + users[i] + "\",");
-            System.out.println("        \"timestamp\": \"" + timestamps[i] + "\"");
-            if (i < users.length - 1) {
-                System.out.println("      },");
-            } else {
-                System.out.println("      }");
-            }
-        }
+-Break into smaller private methods:
 
-        System.out.println("    ]");
-        System.out.println("  }");
-        System.out.println("}");
-    }
-}
+-Refactor to return data instead of printing directly.
+
