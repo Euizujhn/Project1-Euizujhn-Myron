@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class TheApplication {
+public class Application {
 // The Actual Menu, Journalist Picks the Info from this
 
 
@@ -14,6 +14,7 @@ public class TheApplication {
 
     public static void main(String[] args) throws IOException {
         String title = getTheTitle();
+
         if(title == null || title.isBlank()){
             System.err.println("Error: Page not Found");
             return;
@@ -33,16 +34,15 @@ public class TheApplication {
             }
             return Wiki;
         }
-    
     public class getInfo {
-        //Recieve Info Directly from JSON (Work in Progress)
+
     }
+
 }
 
     //Go to Article, Basic Info about the Wiki, The Most Recent Wiki Changes
 
     //Display info from the Wiki_Reader
-
 
 
 
