@@ -6,15 +6,12 @@ import java.util.Scanner;
 
 public class Application {
 // The Actual Menu, Journalist Picks the Info from this
-
-
-    static Scanner input = new Scanner(System.in);
-    Wikipedia_Reader_For_Test reader = new Wikipedia_Reader_For_Test();
-    String title = getTheTitle();
+static Scanner input = new Scanner(System.in);
+Wikipedia_Reader_For_Test reader = new Wikipedia_Reader_For_Test();
+String title = getTheTitle();
 
     public static void main(String[] args) throws IOException {
         String title = getTheTitle();
-
         if(title == null || title.isBlank()){
             System.err.println("Error: Page not Found");
             return;
@@ -23,8 +20,8 @@ public class Application {
 
         public static String getTheTitle(){
             System.out.println("Enter an Article from the list:\nVideo Game\n");
-            String Wiki = input.nextLine();
-            if(Wiki.equals("Video Game") || (Wiki.equals("video game"))){
+            String WikiSearch = input.nextLine();
+            if(WikiSearch.equals("Video Game") || (WikiSearch.equals("video game"))){
                 System.out.println();
                 System.out.println("Recent User Changes" +
                         "\nUser:Chris the Speller - Timestamp:2025-09-19T04:30:52Z" +
@@ -32,11 +29,8 @@ public class Application {
                         "\nUser:Æ's old account wasn't working - TimeStamp:2025-09-07T07:16:17Z" +
                         "\nUser:Æ's old account wasn't working - TimeStamp:2025-08-15T04:35:35Z");
             }
-            return Wiki;
+            return WikiSearch;
         }
-    public class getInfo {
-
-    }
 
 }
 
