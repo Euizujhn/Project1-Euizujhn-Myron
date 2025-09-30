@@ -20,14 +20,20 @@ public class TheInterface extends Application {
         TextField textField = new TextField();
         urlArea.getChildren().add(textField);
         parent.getChildren().add(urlArea);
-
         Button button = new Button("Enter Page");
 
-        button.setOnAction(actionEvent -> System.out.println("Recent User Changes" +
-                "\nUser:Chris the Speller / Date:2025-09-19 / Time:04:30:52" +
-                "\nUser:GreenC bot / Date:2025-09-16 / Time:18:45:35" +
-                "\nUser:Æ's old account wasn't working / Date:2025-09-07 / Time:07:16:17" +
-                "\nUser:Æ's old account wasn't working / Date:2025-08-15 / Time:04:35:35"));
+        button.setOnAction(event -> {
+                String input = textField.getText();
+                if(input.equals("Video Game") || input.equals("video game")){
+                    System.out.println("Recent User Changes" +
+                            "\nUser:Chris the Speller / Date:2025-09-19 / Time:04:30:52" +
+                            "\nUser:GreenC bot / Date:2025-09-16 / Time:18:45:35" +
+                            "\nUser:Æ's old account wasn't working / Date:2025-09-07 / Time:07:16:17" +
+                            "\nUser:Æ's old account wasn't working / Date:2025-08-15 / Time:04:35:35");
+                } else {
+                    System.err.println("Error: Page not Found");
+                }
+        });
         parent.getChildren().add(button);
 
         primaryStage.setScene(new Scene(parent));
