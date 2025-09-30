@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Application {
 // The Actual Menu, Journalist Picks the Info from this
 static Scanner input = new Scanner(System.in);
-Wikipedia_Reader_For_Test reader = new Wikipedia_Reader_For_Test();
+Wikipedia reader = new Wikipedia();
 String title = getTheTitle();
 
     public static void main(String[] args) throws IOException {
