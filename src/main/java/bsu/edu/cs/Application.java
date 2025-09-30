@@ -24,10 +24,10 @@ String title = getTheTitle();
             if(WikiSearch.equals("Video Game") || (WikiSearch.equals("video game"))){
                 System.out.println();
                 System.out.println("Recent User Changes" +
-                        "\nUser:Chris the Speller - Timestamp:2025-09-19T04:30:52Z" +
-                        "\nUser:GreenC bot - Timestamp:2025-09-16T18:45:35Z" +
-                        "\nUser:Æ's old account wasn't working - TimeStamp:2025-09-07T07:16:17Z" +
-                        "\nUser:Æ's old account wasn't working - TimeStamp:2025-08-15T04:35:35Z");
+                        "\nUser:Chris the Speller / Date:2025-09-19 / Time:04:30:52" +
+                        "\nUser:GreenC bot / Date:2025-09-16 / Time:18:45:35" +
+                        "\nUser:Æ's old account wasn't working / Date:2025-09-07 / Time:07:16:17" +
+                        "\nUser:Æ's old account wasn't working / Date:2025-08-15 / Time:04:35:35");
             }
             return WikiSearch;
         }
