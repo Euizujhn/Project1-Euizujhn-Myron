@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 
 
 public class TheInterface extends Application {
+    private Stage Mainstage;
 
 
     @Override
@@ -25,7 +26,6 @@ public class TheInterface extends Application {
         urlArea.getChildren().add(textField);
         parent.getChildren().add(urlArea);
         Button button = new Button("Enter Page");
-
         button.setOnAction(event -> {
             String input = textField.getText();
             if(input.equals("Video Game") || input.equals("video game")){
@@ -35,7 +35,11 @@ public class TheInterface extends Application {
                         "\nUser:GreenC bot / Date:2025-09-16 / Time:18:45:35" +
                         "\nUser:Æ's old account wasn't working / Date:2025-09-07 / Time:07:16:17" +
                         "\nUser:Æ's old account wasn't working / Date:2025-08-15 / Time:04:35:35"));
+                Button button2 = new Button("Go Back");
+                button2.setOnAction(event2 -> { primaryStage.setScene(parent.getScene()); primaryStage.show();});
+                root.getChildren().add(button2);
                 Scene scene = new Scene(root, 400, 300);
+
                 primaryStage.setScene(scene);
                 primaryStage.show();
 
@@ -44,9 +48,13 @@ public class TheInterface extends Application {
             } else {
                 VBox root = new VBox();
                 root.getChildren().add(new Label("Error: Page not Found"));
+                Button button2 = new Button("Go Back");
+                button2.setOnAction(event2 -> { primaryStage.setScene(parent.getScene()); primaryStage.show();});
+                root.getChildren().add(button2);
                 Scene scene = new Scene(root, 400, 300);
                 primaryStage.setScene(scene);
                 primaryStage.show();
+
             }
         });
         parent.getChildren().add(button);
@@ -56,11 +64,15 @@ public class TheInterface extends Application {
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
 
-
-
-
+        Mainstage = primaryStage;
 
     }
 
+    public Stage getMainStage(){
+        return Mainstage;
+    }
+
+
 
 }
+
