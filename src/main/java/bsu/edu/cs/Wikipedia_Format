@@ -1,0 +1,63 @@
+package bsu.edu.cs;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Wikipedia_Format extends Wikipedia_Reader{
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a Wiki Page");
+        String Page = input.nextLine();
+        System.out.println("User, Date, & Time");
+        System.out.println("====================");
+        Changers(Page);
+    }
+
+
+    public static String Changers(String PageKey){
+        try {
+            JSONArray Change = getRecentChange(PageKey);
+            for (int i = 0; i <= 3; i++){
+                int order = i + 1;
+                JSONObject UserList = (JSONObject) Change.get(i);
+                System.out.println(order + "." + UserList.get("user") + ": " + UserList.get("timestamp"));
+                System.out.println();
+            }
+
+        }  catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    //FORMAT FOR GUI
+    public static String ChangersGUI(String PageKey){
+        try {
+            JSONArray Change = getRecentChange(PageKey);
+            ArrayList<String> UserList = new ArrayList<>();
+            for (int i = 0; i <= 3; i++){
+                int order = i + 1;
+                JSONObject UserOBJ = (JSONObject) Change.get(i);
+                String UserChange = order + "." + UserOBJ.get("user") + ": " + UserOBJ.get("timestamp") + "\n";
+                UserList.add(UserChange);
+                if (i == 3){
+                    return String.valueOf(UserList);
+                }
+            }
+
+        }  catch (Exception e) {
+                String empty = "Wikipedia Page was not Found!";
+                return empty;
+        }
+        return null;
+    }
+
+
+    }
+
+
+
