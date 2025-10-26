@@ -1,121 +1,79 @@
-package bsu.edu.cs;
-
-
-import com.jayway.jsonpath.JsonPath;
-import net.minidev.json.JSONArray;
-import net.minidev.json.parser.JSONParser;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.MalformedInputException;
 import java.util.Scanner;
 
-
 public class Wikipedia_Reader {
-    // Gets the Information about Wiki & the Changes Made
+    public static JSONArray getRecentChange(String title){
+        title = title.replaceAll(" ", "+");
+        String urlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles="
+                + title + "&rvprop=timestamp|user&rvlimit=4&redirects";
 
-    //Extract the info from Wiki
+            try {
+                HttpURLConnection apiConnection = fetchApiResponse(urlString);
 
-    //Display the most recent changes made
+               if (apiConnection.getResponseCode() != 200) {
+                    System.err.println("Error: Cannot connect to API");
+                    return null;
+                }
 
-    //GETS THE JSON DATA
+                String jsonResponse = readApiResponse(apiConnection);
 
+                JSONParser parser = new JSONParser();
+                JSONObject resultsJSONobj = (JSONObject) parser.parse(jsonResponse);
 
+                JSONObject query = (JSONObject) resultsJSONobj.get("query");
+                JSONObject pages = (JSONObject) query.get("pages");
+                String pageId = (String) pages.keySet().iterator().next();
+                JSONObject page = (JSONObject) pages.get(pageId);
 
-    public static void main(String[] args) {
-         Wikipedia_Reader reader = new Wikipedia_Reader();
-         Scanner input = new Scanner(System.in);
-         String Line = input.nextLine();
-    try {
-        String timestamp = reader.getLatestRevisionOf(Line);
-        System.out.println(timestamp);
-    }
-    catch (IOException ioException) {
-        System.err.println("Network Issue: " + ioException.getMessage());
-    }
+                JSONArray revisions = (JSONArray) page.get("revisions");
 
+                return revisions;
 
-    }
-
-      private String getLatestRevisionOf(String articleTitle) throws IOException {
-        String urlString = String.format("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=Videogame&rvprop=timestamp|user&rvlimit=4&redirects"
-              ,articleTitle);
-        String encodedUrlString = URLEncoder.encode(urlString, Charset.defaultCharset());
-
-        try {
-          URL url = new URL(encodedUrlString);
-          URLConnection connection = url.openConnection();
-          connection.setRequestProperty("User-Agent",
-                  "Wikipedia_Reader/0.1 (ej.wade@bsu.edu)");
-            InputStream inputStream = connection.getInputStream();
-          Wikipedia_Reader parser = new Wikipedia_Reader();
-          String timeStamp = parser.parse(inputStream);
-            return timeStamp;
-
-    } catch (MalformedInputException malformedURLException){
-      throw new RuntimeException(malformedURLException);
-    }
-      }
-
-    //Test
-    public String Chris(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
-        String Chris = results.get(0).toString();
-        return Chris;
-    }
-
-    public String GreenC(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
-        String GreenC_Bot = results.get(1).toString();
-        return GreenC_Bot;
-    }
-
-    public String Old_Account(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
-        String Old_Account = results.get(2).toString();
-        return Old_Account;
-    }
-
-    public String Second_Old_Account(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..user");
-        String Second_Old_Account = results.get(3).toString();
-        return Second_Old_Account;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
     }
 
 
-    public String Chris_TimeStamp(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
-        String Chris_TimeStamp = results.get(0).toString();
-        return Chris_TimeStamp;
-    }
 
-    public String GreenC_TimeStamp(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
-        String GreenC_TimeStamp = results.get(1).toString();
-        return GreenC_TimeStamp;
-    }
+    private static String readApiResponse(HttpURLConnection apiConnection) {
+        try{
+            StringBuilder resultJson = new StringBuilder();
+            Scanner input = new Scanner(apiConnection.getInputStream());
+            while (input.hasNext()) {
+                resultJson.append(input.nextLine());
+            }
+            input.close();
+            return resultJson.toString();
 
-    public String Old_Account_TimeStamp(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
-        String Old_Account_TimeStamp = results.get(2).toString();
-        return Old_Account_TimeStamp;
-    }
-
-    public String Second_Old_Account_TimeStamp(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
-        String Second_Old_Account_TimeStamp = results.get(3).toString();
-        return Second_Old_Account_TimeStamp;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
-    public String parse(InputStream testDataStream) throws IOException {
-        JSONArray results = (JSONArray) JsonPath.read(testDataStream, "$..timestamp");
-        return results.get(3).toString();
+
+    private static HttpURLConnection fetchApiResponse(String urlString){
+        try{
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", "Wikipedia_Reader/0.1 (ej.wade@bsu.edu)");
+            connection.setRequestMethod("GET");
+            return connection;
+        }
+
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
-
-
 }
+
