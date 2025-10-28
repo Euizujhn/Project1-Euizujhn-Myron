@@ -3,7 +3,7 @@ package bsu.edu.cs;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class TestWiki {
+public class Test_Wikipedia {
     @Test
     void TestgetUser(){
         Wikipedia_Format format = new Wikipedia_Format();
