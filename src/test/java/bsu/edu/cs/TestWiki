@@ -11,10 +11,11 @@ public class TestWiki {
         Assertions.assertTrue(testUser);
     }
 
+
     @Test
     void TestgetTimestamp(){
         Wikipedia_Format format = new Wikipedia_Format();
-        boolean testUser = format.TestUserFirst("Zappa");
+        boolean testUser = format.TestUserSecond("Zappa");
         Assertions.assertTrue(testUser);
     }
 
