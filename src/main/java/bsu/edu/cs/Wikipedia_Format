@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//FOR ITERATION  1
 public class Wikipedia_Format extends Wikipedia_Reader{
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -16,7 +17,7 @@ public class Wikipedia_Format extends Wikipedia_Reader{
         Changers(Page);
     }
 
-
+    //Shows Wikipedia Editors
     public static String Changers(String PageKey){
         try {
             JSONArray Change = getRecentChange(PageKey);
@@ -28,7 +29,8 @@ public class Wikipedia_Format extends Wikipedia_Reader{
             }
 
         }  catch (Exception e) {
-            e.printStackTrace();
+            String empty = "Wikipedia Page was not Found!";
+            return empty;
         }
         return null;
     }
@@ -56,8 +58,42 @@ public class Wikipedia_Format extends Wikipedia_Reader{
         return null;
     }
 
+    //TESTING
+    public boolean TestUserFirst(String PageKey) {
+        try {
+            JSONArray Change = getRecentChange(PageKey);
+            JSONObject UserOBJ = (JSONObject) Change.get(2);
+            String TheUser = (String) UserOBJ.get("user");
+            if (TheUser.equals("Notreallydavid")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
 
     }
+
+    public boolean TestUserSecond(String PageKey) {
+        try {
+            JSONArray Change = getRecentChange(PageKey);
+            JSONObject UserOBJ = (JSONObject) Change.get(2);
+            String TheUser = (String) UserOBJ.get("timestamp");
+            if (TheUser.equals("2025-10-26T05:56:53Z")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+
+    }
+
 
 
 
